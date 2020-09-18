@@ -1,0 +1,79 @@
+---
+title: "Simple document"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+I'm an R Markdown document! 
+
+# Homework 1
+
+Here's a **code chunk** that samples from 
+a _normal distribution_:
+
+```{r}
+library(tidyverse)
+hw_df = 
+  tibble(
+    data1 = rnorm(10),
+    samp_gt_0 = data1 > 0,
+    char_vec = c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j"),
+    factor_vec = factor(c("low", "low", "low", "mod", "mod", "mod", "high", "high", "high", "high"))
+  )
+```
+
+```{r}
+mean(pull(hw_df, data1))
+mean(pull(hw_df, samp_gt_0))
+mean(pull(hw_df, char_vec))
+mean(pull(hw_df, factor_vec))
+```
+
+We can take the mean of numbers and logical, but cannot compute the mean of vectors or factors.
+
+```{r}
+as.numeric(pull(hw_df, data1))
+as.numeric(pull(hw_df, samp_gt_0))
+as.numeric(pull(hw_df, char_vec))
+as.numeric(pull(hw_df, factor_vec))
+```
+
+Numeric, logical and factor can be converted to numeric, but vector cannot.
+
+```{r}
+as.numeric(pull(hw_df, samp_gt_0)) * pull(hw_df, data1)
+as.factor(pull(hw_df, samp_gt_0)) * pull(hw_df, data1)
+as.numeric(as.factor(pull(hw_df, samp_gt_0))) * pull(hw_df, data1)
+```
+
+
+
+# Homework 2
+
+```{r}
+
+data("penguins", package = "palmerpenguins")
+head(penguins)
+nrow(penguins)
+ncol(penguins)
+mean(pull(penguins, flipper_length_mm),na.rm = TRUE)
+
+
+```
+This dataset contains `r nrow(penguins)` penguins and `r ncol(penguins)` variables: species, island, bill_length_mm, bill_depth_mm, flipper_length_mm, bill_depth_mm, body_mass_g, sex, year. The mean of flipper length is `r mean(pull(penguins, flipper_length_mm),na.rm = TRUE)`.
+
+```{r}
+plot_df = tibble(
+  y = pull(penguins, flipper_length_mm),
+  x = pull(penguins, bill_length_mm))
+
+ggplot(plot_df, aes(x = x, y = y, color = pull(penguins,species))) + geom_point()
+```
+
+
+
+
+
+
+
