@@ -1,11 +1,14 @@
 ---
-title: "Simple document"
-output:
-  pdf_document: default
-  html_document: default
+title: "HW1"
+author: "Ruwen Zhou"
+date: 2019-09-10
+output: html_document
 ---
 
-I'm an R Markdown document! 
+```{r setup, include = FALSE}
+library(tidyverse)
+```
+I'm an R Markdown document
 
 # Homework 1
 
@@ -13,7 +16,7 @@ Here's a **code chunk** that samples from
 a _normal distribution_:
 
 ```{r}
-library(tidyverse)
+
 hw_df = 
   tibble(
     data1 = rnorm(10),
